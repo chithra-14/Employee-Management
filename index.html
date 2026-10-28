@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EmpTrack - Employee Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+    
+<script>
+    const token = sessionStorage.getItem("authToken");
+
+    if (!token) {
+        window.location.replace("login.html");
+    }
+</script>
+
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <div class="logo-icon">E</div>
+
+                <div>
+                    <h2>EmpTrack</h2>
+                    <span>Management System</span>
+                </div>
+            </div>
+
+            <nav>
+
+                <button class="menu active"
+                    onclick="showPage('dashboard', this)">
+                    <span>⌂</span> Dashboard
+                </button>
+
+                <button class="menu"
+                    onclick="showPage('attendance', this)">
+                    <span>✓</span> Attendance
+                </button>
+
+                <button class="menu"
+                    onclick="showPage('leave', this)">
+                    <span>▣</span> Leave
+                </button>
+
+                <button class="menu"
+                    onclick="showPage('holidays', this)">
+                    <span>▦</span> Holidays
+                </button>
+
+                <button class="menu"
+                    onclick="showPage('analytics', this)">
+                    <span>▥</span> Analytics
+                </button>
+
+                <button class="menu"
+                    onclick="showPage('profile', this)">
+                    <span>●</span> Profile
+                </button>
+                
+<button id="logoutBtn" type="button" class="logout-btn">
+    <span class="logout-icon">↪</span>
+    <span>Logout</span>
+</button>
+
+
+            </nav>
+
+            <div class="sidebar-bottom">
+                <p>Employee Portal</p>
+                <small>Version 1.0</small>
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main">
+
+            <!-- HEADER -->
+            <header class="header">
+
+                <div>
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <p>Employee Attendance & Leave Management</p>
+                </div>
+
+                <div class="header-right">
+
+                    <button class="notification" aria-label="Notifications" onclick="showNotice('No new notifications.')">
+                        🔔
+                    </button>
+
+                    <div class="user">
+
+                        <div class="avatar">
+                            CS
+                        </div>
+
+                        <div>
+                            <strong>Chithra S</strong>
+                            <small>Employee</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section id="dashboard" class="page">
+
+                <div class="welcome">
+
+                    <div>
+                        <h2>Good Morning, Chithra! 👋</h2>
+                        <p>
+                            Here's what's happening with your work today.
+                        </p>
+                    </div>
+
+                    <button class="primary"
+                        onclick="openLeaveForm()">
+                        + Apply Leave
+                    </button>
+
+                </div>
+
+
+                <!-- STATISTICS -->
+
+                <div class="stats">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon blue">
+                            ✓
+                        </div>
+
+                        <p>Present Days</p>
+                        <h2>22</h2>
+                        <small>This month</small>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon red">
+                            ×
+                        </div>
+
+                        <p>Absent Days</p>
+                        <h2>2</h2>
+                        <small>This month</small>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon yellow">
+                            ▣
+                        </div>
+
+                        <p>Leave Balance</p>
+                        <h2>8</h2>
+                        <small>Days remaining</small>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon green">
+                            %
+                        </div>
+
+                        <p>Attendance</p>
+                        <h2>91.6%</h2>
+                        <small>Overall percentage</small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DASHBOARD CARDS -->
+
+                <div class="two-column">
+
+                    <!-- TODAY ATTENDANCE -->
+
+                    <div class="box">
+
+                        <div class="box-header">
+                            <h3>Today's Attendance</h3>
+
+                            <span class="status present">
+                                Present
+                            </span>
+                        </div>
+
+
+                        <div class="attendance-time">
+
+                            <div>
+                                <span>Check In</span>
+                                <strong>09:05 AM</strong>
+                            </div>
+
+                            <div>
+                                <span>Check Out</span>
+                                <strong>06:00 PM</strong>
+                            </div>
+
+                        </div>
+
+
+                        <button class="outline"
+                            onclick="showPage('attendance',
+                            document.querySelectorAll('.menu')[1])">
+                            View Attendance
+                        </button>
+
+                    </div>
+
+
+                    <!-- HOLIDAYS -->
+
+                    <div class="box">
+
+                        <div class="box-header">
+                            <h3>Upcoming Holidays</h3>
+
+                            <button class="text-button"
+                                onclick="showPage('holidays',
+                                document.querySelectorAll('.menu')[3])">
+                                View All
+                            </button>
+                        </div>
+
+
+                        <div class="holiday-small">
+
+                            <div class="date-box">
+                                <b>02</b>
+                                <small>OCT</small>
+                            </div>
+
+                            <div>
+                                <strong>Gandhi Jayanti</strong>
+                                <p>Friday</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="holiday-small">
+
+                            <div class="date-box">
+                                <b>20</b>
+                                <small>OCT</small>
+                            </div>
+
+                            <div>
+                                <strong>Diwali</strong>
+                                <p>Tuesday</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECENT LEAVE -->
+
+                <div class="box">
+
+                    <div class="box-header">
+                        <h3>Recent Leave Requests</h3>
+
+                        <button class="text-button"
+                            onclick="showPage('leave',
+                            document.querySelectorAll('.menu')[2])">
+                            View All
+                        </button>
+                    </div>
+
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Leave Type</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Days</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>Casual Leave</td>
+                                <td>15 Sep</td>
+                                <td>16 Sep</td>
+                                <td>2</td>
+
+                                <td>
+                                    <span class="status approved">
+                                        Approved
+                                    </span>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Sick Leave</td>
+                                <td>20 Sep</td>
+                                <td>20 Sep</td>
+                                <td>1</td>
+
+                                <td>
+                                    <span class="status pending">
+                                        Pending
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ATTENDANCE ================= -->
+
+            <section id="attendance" class="page hidden">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h2>Attendance Records</h2>
+                        <p>
+                            View and manage your attendance history.
+                        </p>
+                    </div>
+
+                    <button class="primary"
+                        onclick="markAttendance()">
+                        ✓ Mark Attendance
+                    </button>
+                    <button class="outline" onclick="checkoutAttendance()">Check Out</button>
+
+                </div>
+
+
+                <div class="box">
+
+                    <div class="filter-row">
+
+                        <select>
+                            <option>September 2026</option>
+                            <option>August 2026</option>
+                            <option>July 2026</option>
+                        </select>
+
+                        <button class="outline"
+                            onclick="downloadReport()">
+                            Download Report
+                        </button>
+
+                    </div>
+
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Day</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="attendanceTableBody">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= LEAVE ================= -->
+
+            <section id="leave" class="page hidden">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h2>Leave Management</h2>
+                        <p>
+                            Apply for leave and track your requests.
+                        </p>
+                    </div>
+
+                    <button class="primary"
+                        onclick="openLeaveForm()">
+                        + Apply Leave
+                    </button>
+
+                </div>
+
+
+                <!-- LEAVE BALANCE -->
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <p>Casual Leave</p>
+                        <h2>5</h2>
+                        <small>Days remaining</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Sick Leave</p>
+                        <h2>3</h2>
+                        <small>Days remaining</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Total Balance</p>
+                        <h2>8</h2>
+                        <small>Days remaining</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Pending Requests</p>
+                        <h2>1</h2>
+                        <small>Awaiting approval</small>
+                    </div>
+
+                </div>
+
+
+                <!-- LEAVE FORM -->
+
+                <div id="leaveForm" class="box hidden">
+
+                    <div class="box-header">
+                        <h3>Apply for Leave</h3>
+
+                        <button class="close"
+                            onclick="closeLeaveForm()">
+                            ×
+                        </button>
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div>
+                            <label>Leave Type</label>
+
+                            <select id="leaveType">
+
+                                <option>
+                                    Casual Leave
+                                </option>
+
+                                <option>
+                                    Sick Leave
+                                </option>
+
+                                <option>
+                                    Permission
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div>
+                            <label>From Date</label>
+
+                            <input
+                                type="date"
+                                id="fromDate">
+                        </div>
+
+
+                        <div>
+                            <label>To Date</label>
+
+                            <input
+                                type="date"
+                                id="toDate">
+                        </div>
+
+
+                        <div>
+                            <label>Reason</label>
+
+                            <input
+                                type="text"
+                                id="reason"
+                                placeholder="Enter reason">
+                        </div>
+
+                    </div>
+
+
+                    <button class="primary"
+                        onclick="submitLeave()">
+                        Submit Request
+                    </button>
+
+                </div>
+
+
+                <!-- LEAVE TABLE -->
+
+                <div class="box">
+
+                    <h3>Leave Requests</h3>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Type</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Days</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="leaveTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= HOLIDAYS ================= -->
+
+            <section id="holidays" class="page hidden">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h2>Holiday Calendar</h2>
+                        <p>
+                            View upcoming organizational holidays.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="holiday-grid">
+
+                    <div class="holiday-card">
+
+                        <div class="holiday-date">
+                            02
+                            <small>OCT</small>
+                        </div>
+
+                        <div>
+                            <h3>Gandhi Jayanti</h3>
+                            <p>Friday</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="holiday-card">
+
+                        <div class="holiday-date">
+                            20
+                            <small>OCT</small>
+                        </div>
+
+                        <div>
+                            <h3>Diwali</h3>
+                            <p>Tuesday</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="holiday-card">
+
+                        <div class="holiday-date">
+                            25
+                            <small>DEC</small>
+                        </div>
+
+                        <div>
+                            <h3>Christmas</h3>
+                            <p>Friday</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="holiday-card">
+
+                        <div class="holiday-date">
+                            01
+                            <small>JAN</small>
+                        </div>
+
+                        <div>
+                            <h3>New Year</h3>
+                            <p>Friday</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ANALYTICS ================= -->
+
+            <section id="analytics" class="page hidden">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h2>Attendance Analytics</h2>
+                        <p>
+                            Overview of attendance and leave statistics.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <p>Total Employees</p>
+                        <h2>120</h2>
+                        <small>Active employees</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Average Attendance</p>
+                        <h2>92%</h2>
+                        <small>This month</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>On Leave Today</p>
+                        <h2>8</h2>
+                        <small>Employees</small>
+                    </div>
+
+                    <div class="stat-card">
+                        <p>Pending Requests</p>
+                        <h2>5</h2>
+                        <small>Need approval</small>
+                    </div>
+
+                </div>
+
+
+                <div class="box">
+
+                    <h3>Weekly Attendance</h3>
+
+                    <div class="chart">
+
+                        <div class="bar"
+                            style="height:70%">
+                            <span>Mon</span>
+                        </div>
+
+                        <div class="bar"
+                            style="height:85%">
+                            <span>Tue</span>
+                        </div>
+
+                        <div class="bar"
+                            style="height:75%">
+                            <span>Wed</span>
+                        </div>
+
+                        <div class="bar"
+                            style="height:90%">
+                            <span>Thu</span>
+                        </div>
+
+                        <div class="bar"
+                            style="height:80%">
+                            <span>Fri</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PROFILE ================= -->
+
+            <section id="profile" class="page hidden">
+
+                <div class="page-heading">
+
+                    <div>
+                        <h2>My Profile</h2>
+                        <p>
+                            View your employee information.
+                        </p>
+                    </div>
+
+                    <button class="outline"
+                        onclick="editProfile()">
+                        Edit Profile
+                    </button>
+
+                </div>
+
+
+                <div class="profile-card">
+
+                    <div class="profile-avatar">
+                        CS
+                    </div>
+
+                    <h2>Chithra S</h2>
+
+                    <p>
+                        B.Tech Information Technology
+                    </p>
+
+
+                    <div class="profile-details">
+
+                        <div>
+                            <span>Employee ID</span>
+                            <strong>EMP001</strong>
+                        </div>
+
+                        <div>
+                            <span>Department</span>
+                            <strong>Information Technology</strong>
+                        </div>
+
+                        <div>
+                            <span>Role</span>
+                            <strong>Employee</strong>
+                        </div>
+
+                        <div>
+                            <span>Location</span>
+                            <strong>Chennai</strong>
+                        </div>
+
+                        <div>
+                            <span>Email</span>
+                            <strong>chithra@example.com</strong>
+                        </div>
+
+                        <div>
+                            <span>Joining Date</span>
+                            <strong>September 2024</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
