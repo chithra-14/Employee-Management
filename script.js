@@ -1,5 +1,5 @@
 /* ================= EMPLOYEE MANAGEMENT FRONTEND ================= */
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://employee-management-api-h0jc.onrender.com/api";
 // This must be the _id of the Employee document in MongoDB, not an Attendance _id.
 const EMPLOYEE_ID = "6ab23e38842e51464d2a47b3";
 const LEAVE_STORAGE_KEY = "empTrackLeaveRequests";
